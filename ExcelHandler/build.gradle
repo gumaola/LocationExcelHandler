@@ -10,7 +10,7 @@ targetCompatibility = "7"
 jar {
     manifest {
         attributes 'Main-Class': 'cn.nano.excelhandler.Main'
-        attributes 'Class-Path': "activation-1.1.1.jar " +
+        attributes 'Class-Path': "libs/activation-1.1.1.jar " +
                 "libs/commons-codec-1.13.jar " +
                 "libs/commons-collections4-4.4.jar " +
                 "libs/commons-compress-1.19.jar " +
@@ -25,7 +25,7 @@ jar {
                 "libs/poi-4.1.2.jar " +
                 "libs/poi-examples-4.1.2.jar " +
                 "libs/poi-excelant-4.1.2.jar " +
-                "libs/poi-ooxml-4.1.2.jar" +
+                "libs/poi-ooxml-4.1.2.jar " +
                 "libs/poi-ooxml-schemas-4.1.2.jar " +
                 "libs/poi-scratchpad-4.1.2.jar " +
                 "libs/SparseBitSet-1.2.jar " +
