@@ -17,7 +17,7 @@ public class Main {
     public static void main(String[] args) {
 
 
-        String sourPath = "/Users/p365/Desktop/location/location.xlsx";
+        String sourPath = "/Users/p365/Desktop/location/locations.xlsx";
         String destPath = "/Users/p365/Desktop/location/%s.txt";
         String valueFromat = "<string name=\"%1s\">%2s</string>";
 
@@ -63,18 +63,37 @@ public class Main {
                 if (cell == null) {
                     continue;
                 }
+
+                String value = cell.getStringCellValue();
+                if (value == null || value.length() == 0) {
+                    continue;
+                }
+
                 FileWriter fw = new FileWriter(String.format(destPath,
-                        cell.getStringCellValue().trim()));
+                        value.trim()));
                 fileWritersList.add(fw);
             }
 
             //遍历其他行列数据
             String key = null;
+            Cell keyCell = null;
             for (int i = firstRowNum + 1; i <= lastRowNum; i++) {
-                row = sheet.getRow(i);//取得第i行 （从第二行开始取，因为第一行是表头）
+                row = sheet.getRow(i);//取得第i行 （从第二行开始取，因为第一行是表头
                 firstCellNum = row.getFirstCellNum();
                 lastCellNum = row.getLastCellNum();
-                key = row.getCell(0).getStringCellValue().trim();
+
+
+                keyCell = row.getCell(0);
+
+                if (keyCell == null) {
+                    continue;
+                }
+                key = keyCell.getStringCellValue();
+                if (key == null || key.length() == 0) {
+                    continue;
+                }
+
+                key = key.trim();
 
                 for (int j = 1; j <= lastCellNum; j++) {
                     cell = row.getCell(j);
@@ -83,7 +102,11 @@ public class Main {
                     }
 
                     FileWriter writer = fileWritersList.get(j - 1);
-                    writer.write(String.format(valueFromat, key, cell.getStringCellValue().trim()) + "\r\n");
+                    String value = cell.getStringCellValue();
+                    if (value == null || value.length() == 0) {
+                        continue;
+                    }
+                    writer.write(String.format(valueFromat, key, value.trim()) + "\r\n");
                 }
             }
 
